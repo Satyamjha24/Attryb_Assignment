@@ -6,6 +6,7 @@ const { MarketRouter } = require("./Routes/market.route")
 const { MarketItemModel } = require("./Modals/marketItems.modal")
 const { auth } = require("./Middleware/auth.middleware")
 const { dealerRouter } = require("./Routes/dealer.route")
+const { OEMRouter } = require("./Routes/OEM.routes")
 
 const app=express()
 app.use(cors())
@@ -18,16 +19,17 @@ app.get("/",(req,res)=>{
 
 MarketRouter.get("/",async(req,res)=>{
     try{
-        const oldCars = await MarketItemModel.find().populate('oemSpecs')
-        res.send(oldCars)
+        const oldCars = await MarketItemModel.find()
+        res.status(200).send(oldCars)
     }catch(err){
         console.log({"msg":"Error Occured","error":err})
     }
 })
 
-app.use("/dealer",dealerRouter)
+app.use("/dealerItem",dealerRouter)
 app.use(auth)
-app.use("/MarketItem",MarketRouter)
+app.use("/marketItem",MarketRouter)
+app.use("/OEM",OEMRouter)
 
 app.listen(process.env.port,async()=>{
     try{

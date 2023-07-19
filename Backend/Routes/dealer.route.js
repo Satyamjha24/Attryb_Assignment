@@ -26,22 +26,22 @@ dealerRouter.post("/login",async(req,res)=>{
     const {email,password} = req.body
     console.log('email,password:', email,password)
     try{
-        const user = await DealerModel.find({email})
+        const user = await DealerModel.findOne({email})
         console.log('user:', user)
-        let token = jwt.sign({dealerid:user[0]._id},"cars") 
-        if(user.length>0){
-            bcrypt.compare(password, user[0].password, function(err, result) {
+        let token = jwt.sign({dealerid:user._id},"cars") 
+        if(user){
+            bcrypt.compare(password, user.password, function(err, result) {
                 if(result){
-                    res.send({"msg":"Login Success","token":token})
+                    res.status(200).send({"msg":"Login Success","token":token})
                 }else{
-                    console.log({"msg":"Error Occured","error":err})
+                    res.status(400).send({"msg":"login failed"})
                 }
             });
         }else{
             res.send({"msg":"Wrong Credentials"})
         }
     }catch(err){
-        console.log({"msg":"Error Occured","error":err})
+        res.status(400).send({"msg":err.message})
     }
 })
 
