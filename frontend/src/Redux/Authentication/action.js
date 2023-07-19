@@ -1,5 +1,4 @@
-import axios from "axios";
-import { login, register, userError } from "./actionTypes";
+import { login, register} from "./actionTypes";
 
 export const registerDealer = (payload) => (dispatch) => {
   fetch('http://localhost:8080/dealerItem/register' ,{
