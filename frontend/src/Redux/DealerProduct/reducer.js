@@ -17,7 +17,7 @@ export const reducer=(state=initState,{payload,type})=>{
         case UPDATECARS:{
             let data=state.dealerData.map((el)=>{
                 if(el._id==payload.id){
-                    console.log('Reducer payload:', payload.payload)
+                    console.log('Reducer payload:', payload)
                     return {...el,...payload.payload}
                 }
                 return el

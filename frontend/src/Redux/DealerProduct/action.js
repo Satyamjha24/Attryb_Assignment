@@ -22,6 +22,7 @@ export const addFun = (payload)=> (dispatch)=>{
     ).then((res)=>dispatch({ type: ADDCARS, payload: res.data }))
 }
 export const updateFun = (id,payload)=> (dispatch)=>{
+    console.log(payload,id);
      axios.patch(`https://zany-lime-moth-cape.cyclic.app/marketItem/update/${id}`,payload,{
             headers: {
                 'Content-Type': 'application/json',

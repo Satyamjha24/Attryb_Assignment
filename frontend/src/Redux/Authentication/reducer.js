@@ -1,4 +1,4 @@
-import { login, register } from "./actionTypes";
+import { login, logout, register } from "./actionTypes";
 let initState = {
   isAuth: false,
   token: "",
@@ -21,6 +21,14 @@ export const reducer = (state = initState, { payload, type }) => {
         token: payload,
         loading: false,
       };
+    }
+    case logout:{
+      return {
+        ...state,
+        isAuth:false,
+        token:'',
+        loading: false
+      }
     }
     default: {
       return state;

@@ -23,17 +23,17 @@ const OEM = () => {
   }, [store]);
   return (
     <div>
-      <div className='inputBox'>
-      <Filters setData={setData} data={store?.oemData} from={"oem"} />
-        <input onChange={(e) => setSearch(e.target.value)} type="text" placeholder="Search your Car" className='input' />
-      </div>
-      {store.loading && <h2 style={{textAlign:"center"}} >Loading...</h2>}
-      <div className='container'>
-        {data && data?.map((el,i)=>(
-            <OEMCard key={i} car={el} />
-        )) }
-      </div>
+    <div className='inputBox'>
+    <Filters setData={setData} data={store?.oemData} from={"oem"} />
+      <input onChange={(e) => setSearch(e.target.value)} type="text" placeholder="Search your Car" className='input' />
     </div>
+    {store.loading && <h2 style={{textAlign:"center"}} >Loading...</h2>}
+    <div className='container'>
+      {data && data?.map((el,i)=>(
+          <OEMCard key={i} car={el} />
+      )) }
+    </div>
+  </div>
   );
 };
 
