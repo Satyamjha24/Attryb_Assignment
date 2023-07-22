@@ -6,7 +6,7 @@ export const getOEM=({search})=>async(dispatch)=>{
     try {
        
         if(search!=""){
-            axios.get(`http://localhost:8080/OEM/?search=${search}`,{
+            axios.get(`https://zany-lime-moth-cape.cyclic.app/OEM/?search=${search}`,{
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': localStorage.getItem("token")
@@ -14,7 +14,7 @@ export const getOEM=({search})=>async(dispatch)=>{
         }).then((res)=>dispatch({type:GETOEM,payload:res.data}))
         
         }else{
-            axios.get(`http://localhost:8080/OEM`,{
+            axios.get(`https://zany-lime-moth-cape.cyclic.app/OEM`,{
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': localStorage.getItem("token")

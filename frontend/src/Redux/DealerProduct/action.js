@@ -3,7 +3,7 @@ import { ADDCARS, DELETECARS, GETCARS, UPDATECARS } from "./actionTypes"
 
 
 export const getFun = ()=> (dispatch)=>{
-     axios.get(`http://localhost:8080/marketItem/dealer`,{
+     axios.get(`https://zany-lime-moth-cape.cyclic.app/marketItem/dealer`,{
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': localStorage.getItem("token")
@@ -13,7 +13,7 @@ export const getFun = ()=> (dispatch)=>{
 }
 export const addFun = (payload)=> (dispatch)=>{
     console.log('payload:', payload)
-     axios.post(`http://localhost:8080/marketItem/create`,payload,{
+     axios.post(`https://zany-lime-moth-cape.cyclic.app/marketItem/create`,payload,{
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': localStorage.getItem("token")
@@ -22,7 +22,7 @@ export const addFun = (payload)=> (dispatch)=>{
     ).then((res)=>dispatch({ type: ADDCARS, payload: res.data }))
 }
 export const updateFun = (id,payload)=> (dispatch)=>{
-     axios.patch(`http://localhost:8080/marketItem/update/${id}`,payload,{
+     axios.patch(`https://zany-lime-moth-cape.cyclic.app/marketItem/update/${id}`,payload,{
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': localStorage.getItem("token")
@@ -31,7 +31,7 @@ export const updateFun = (id,payload)=> (dispatch)=>{
     ).then((res)=>dispatch({ type: UPDATECARS, payload: res }))
 }
 export const deleteFun = (id)=> (dispatch)=>{
-     axios.delete(`http://localhost:8080/marketItem/delete/${id}`,{
+     axios.delete(`https://zany-lime-moth-cape.cyclic.app/marketItem/delete/${id}`,{
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': localStorage.getItem("token")

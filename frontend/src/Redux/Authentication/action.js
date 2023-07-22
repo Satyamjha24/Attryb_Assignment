@@ -1,7 +1,7 @@
 import { login, register} from "./actionTypes";
 
 export const registerDealer = (payload) => (dispatch) => {
-  fetch('http://localhost:8080/dealerItem/register' ,{
+  fetch('https://zany-lime-moth-cape.cyclic.app/dealerItem/register' ,{
             method: "POST",
             headers:{
                 "Content-type":"application/json"
@@ -17,7 +17,7 @@ export const registerDealer = (payload) => (dispatch) => {
 
 export const loginDealer = (loginData) => (dispatch) => {
   //console.log('loginData:', loginData)
-  fetch("http://localhost:8080/dealerItem/login",{
+  fetch("https://zany-lime-moth-cape.cyclic.app/dealerItem/login",{
             method: "POST",
             headers:{
                 "Content-type":"application/json"

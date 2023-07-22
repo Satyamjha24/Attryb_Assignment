@@ -27,7 +27,7 @@ const AddCar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const getData = () =>{
-    axios.get(`http://localhost:8080/OEM/${id}`,{
+    axios.get(`https://zany-lime-moth-cape.cyclic.app/OEM/${id}`,{
       headers: {
           'Content-Type': 'application/json',
           'Authorization': localStorage.getItem("token")

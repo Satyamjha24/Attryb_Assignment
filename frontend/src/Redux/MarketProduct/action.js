@@ -5,7 +5,7 @@ export const getMarketData=(search)=>async(dispatch)=>{
     console.log('search:', search)
     dispatch({type:LOADING});
     try {
-        let data=await axios.get(`http://localhost:8080/marketItem/?search=${search}`,{
+        let data=await axios.get(`https://zany-lime-moth-cape.cyclic.app/marketItem/?search=${search}`,{
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': localStorage.getItem("token")
