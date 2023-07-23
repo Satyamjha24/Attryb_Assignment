@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   HStack,
   Image,
   Input,
@@ -10,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getMarketData } from "../Redux/MarketProduct/action";
+import { getMarketData, getSearchFun, sortByPrice } from "../Redux/MarketProduct/action";
 
 
 const Market = () => {
@@ -18,10 +19,16 @@ const Market = () => {
   const { marketData, loading, error } = useSelector(
     (store) => store.marketReducer
   );
-  const [sort, setSort] = useState("");
-  const [order, setOrder] = useState("");
-  const [color, setColor] = useState("");
+  
   const [search, setSearch] = useState("");
+
+  const handleSort = (value) => {
+    dispatch(sortByPrice(value));
+  };
+
+  const handleSearch = (value) => {
+    dispatch(getSearchFun(value));
+  };
 
   useEffect(() => {
     dispatch(getMarketData());
@@ -29,29 +36,16 @@ const Market = () => {
 
   return (
     <Box style={{ width: "70%" ,margin:'auto'}}>
-      <HStack p={"120px"}>
+      <HStack p={"20px"}>
       
-        <Select
-          placeholder="Select order"
-          onChange={(e) => setOrder(e.target.value)}
-        >
-          <option value="">Sort By Price</option>
+      <Select onChange={(e) => handleSort(e.target.value)}>
+          <option value="">Sort by Price</option>
           <option value="asc">Low to High</option>
           <option value="desc">High to Low</option>
         </Select>
-        <Select
-          placeholder="Select color"
-          onChange={(e) => setColor(e.target.value)}
-        >
-          <option value="red">Red</option>
-          <option value="silver">Silver</option>
-          <option value="blue">Blue</option>
-          <option value="white">White</option>
-          <option value="yellow">Yellow</option>
-        </Select>
         <Input
           type="text"
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => handleSearch(e.target.value)}
           placeholder="Search Car"
         />
       </HStack>
@@ -183,6 +177,7 @@ const Market = () => {
                         </ul>
                       </Text>
                     </Box>
+                    <Button _hover={{backgroundColor:'green.400',colorScheme:'white'}}>Book Now</Button>
                   </HStack>
                 </Box>
               );
