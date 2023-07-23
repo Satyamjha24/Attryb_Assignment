@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ERROR, GETALL, LOADING, getSorted } from "./actionTypes";
+import { ERROR, GETALL, LOADING } from "./actionTypes";
 
 export const getMarketData=()=>async(dispatch)=>{
     dispatch({type:LOADING});
@@ -19,7 +19,7 @@ export const sortByPrice = (value) => (dispatch) => {
     dispatch({ type: LOADING })
 
     return axios.get(`https://zany-lime-moth-cape.cyclic.app/price?price=${value}`,).then((res) => {
-        dispatch({ type: getSorted, payload: res.data })
+        dispatch({ type: GETALL, payload: res.data })
     }).catch((err) => {
         dispatch({ type: ERROR })
     })

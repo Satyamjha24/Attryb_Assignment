@@ -1,4 +1,4 @@
-import { ERROR, GETALL, LOADING, getSorted } from "./actionTypes";
+import { ERROR, GETALL, LOADING } from "./actionTypes";
 
 let initState = {
   marketData: [],
@@ -10,8 +10,6 @@ export const reducer = (state = initState, { payload, type }) => {
     case GETALL: {
       return { ...state, marketData: payload, loading: false, error: false };
     }
-    case getSorted:
-      return { ...state, isLoading: false, marketData: [...payload] }
     case LOADING: {
       return { ...state, loading: true, error: false };
     }

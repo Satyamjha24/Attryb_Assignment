@@ -9,7 +9,7 @@ import {
   Text,
   UnorderedList,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getMarketData, getSearchFun, sortByPrice } from "../Redux/MarketProduct/action";
 
@@ -20,7 +20,6 @@ const Market = () => {
     (store) => store.marketReducer
   );
   
-  const [search, setSearch] = useState("");
 
   const handleSort = (value) => {
     dispatch(sortByPrice(value));

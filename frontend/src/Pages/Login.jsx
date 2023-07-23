@@ -19,7 +19,7 @@ const Login = () => {
 
   const loginHandler = () => {
     //console.log(login);
-    if (login.email != "" && login.password != "") {
+    if (login.email !== "" && login.password !=="") {
       dispatch(loginDealer(login)).then((res) => {
         const token = localStorage.getItem("token");
         const status = localStorage.getItem("status");

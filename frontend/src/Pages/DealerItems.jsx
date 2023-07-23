@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteFun, getFun } from '../Redux/DealerProduct/action';
-import {Image} from '@chakra-ui/react'
+import {Image, useToast} from '@chakra-ui/react'
 import '../CSS/DealerItem.css'
 import Popup from '../Components/Popup';
 
@@ -10,6 +10,7 @@ const DealerItems = () => {
   const [update,setUpdate] = useState(false)
   const [selected,setSelected] = useState(null)
   const dispatch = useDispatch();
+  const toast=useToast()
 
 
   useEffect(() => {
@@ -17,7 +18,15 @@ const DealerItems = () => {
   }, []);
 
   const deleteFunction = (id) => {
-    dispatch(deleteFun(id));
+    dispatch(deleteFun(id)).then(() => {
+      toast({
+        title: "Data Has Been Deleted Successfully",
+        description: "",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      });
+    }); 
   };
   if (store.loading === true) {
     return (
@@ -80,13 +89,6 @@ const DealerItems = () => {
                   {car?.oemSpecs?.availableColors?.map((color, index) => (
                     <li key={index} className='colorItem' style={{ backgroundColor: color }}></li>
                     ))}
-                </ul>
-                <ul className='descriptionList'>
-                  <li>model: {car?.oemItem?.model} {car?.oemItem?.year}</li>
-                  <li>mileage: {car?.oemItem?.mileage}</li>
-                  <li>power: {car?.oemItem?.power} BHP</li>
-                  <li>maxSpeed: {car?.oemItem?.maxSpeed}</li>
-                  <li>List-Price: ₹{car?.oemItem?.listPrice}/-</li>
                 </ul>
               </div>
             </div>

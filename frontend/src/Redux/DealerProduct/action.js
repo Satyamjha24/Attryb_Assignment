@@ -29,7 +29,7 @@ export const addFun = (payload)=> (dispatch)=>{
 }
 export const updateFun = (id,payload)=> (dispatch)=>{
     console.log(payload,id);
-     axios.patch(`https://zany-lime-moth-cape.cyclic.app/marketItem/update/${id}`,payload,{
+    return  axios.patch(`https://zany-lime-moth-cape.cyclic.app/marketItem/update/${id}`,payload,{
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': localStorage.getItem("token")
@@ -38,7 +38,7 @@ export const updateFun = (id,payload)=> (dispatch)=>{
     ).then((res)=>dispatch({ type: UPDATECARS}))
 }
 export const deleteFun = (id)=> (dispatch)=>{
-     axios.delete(`https://zany-lime-moth-cape.cyclic.app/marketItem/delete/${id}`,{
+    return axios.delete(`https://zany-lime-moth-cape.cyclic.app/marketItem/delete/${id}`,{
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': localStorage.getItem("token")

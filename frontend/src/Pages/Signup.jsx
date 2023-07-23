@@ -18,7 +18,7 @@ const Signup = () => {
 
   const signupHandler = () => {
      console.log(register);
-     if(register.name!="" && register.email!="" && register.password!=""){
+     if(register.name!=="" && register.email!=="" && register.password!==""){
       dispatch(registerDealer(register))
       toast({
         title: "Registration Succesfull.",
