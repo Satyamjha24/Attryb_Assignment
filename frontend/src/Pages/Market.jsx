@@ -1,8 +1,6 @@
 import {
   Box,
-  Button,
   HStack,
-  Heading,
   Image,
   Input,
   ListItem,
@@ -27,7 +25,6 @@ const Market = () => {
 
   useEffect(() => {
     dispatch(getMarketData());
-    console.log(marketData);
   }, []);
 
   return (
@@ -181,7 +178,7 @@ const Market = () => {
                                 }}
                               >
                                 {" "}
-                                &nbsp;
+                               
                               </li>      
                         </ul>
                       </Text>

@@ -9,7 +9,13 @@ export const getFun = ()=> (dispatch)=>{
                 'Authorization': localStorage.getItem("token")
             }
         }
-    ).then((res)=>dispatch({ type: GETCARS, payload: res.data }))
+    ).then((res)=>{
+        console.log({"dealer":res});
+        dispatch({ type: GETCARS, payload: res.data })
+    } ).catch((err)=>{
+        console.log({"dealer":err});
+    })
+    
 }
 export const addFun = (payload)=> (dispatch)=>{
     console.log('payload:', payload)

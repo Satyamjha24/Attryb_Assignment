@@ -10,8 +10,8 @@ const Popup = ({car,setUpdate}) => {
   useEffect(()=>{
     setCarDetails({...car})
   },[car])
-  console.log('car:', car)
-  console.log('carDetails:', carDetails)
+  // console.log('car:', car)
+  // console.log('carDetails:', carDetails)
   
   const handleInputChange = (event) => {
     const { name, value } = event.target;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
 import { deleteFun, getFun } from '../Redux/DealerProduct/action';
+import {Image} from '@chakra-ui/react'
 import '../CSS/DealerItem.css'
 import Popup from '../Components/Popup';
 
@@ -10,8 +10,8 @@ const DealerItems = () => {
   const [update,setUpdate] = useState(false)
   const [selected,setSelected] = useState(null)
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  let {id} = useParams()
+
+
   useEffect(() => {
     dispatch(getFun());
   }, []);
@@ -19,6 +19,31 @@ const DealerItems = () => {
   const deleteFunction = (id) => {
     dispatch(deleteFun(id));
   };
+  if (store.loading === true) {
+    return (
+      <>
+        <Image
+          src="https://i.stack.imgur.com/hzk6C.gif"
+          alt="loading"
+          margin="auto"
+          paddingTop="90px"
+          marginBottom="360px"
+        />
+      </>
+    );
+  }
+  if (store.error === true) {
+    return (
+      <>
+        <Image
+          src="https://cdn.dribbble.com/users/774806/screenshots/3823110/something-went-wrong.gif"
+          alt="error"
+          margin="auto"
+          paddingTop="30px"
+        />
+      </>
+    );
+  }
   return (
     <div className='container'>
       {store?.dealerData &&
@@ -30,7 +55,7 @@ const DealerItems = () => {
             <div className='middle'>
               <h2 className='title'>{car?.title}</h2>
               <ul className='descriptionList'>
-                <li>Current Price: {car?.currentPrice}Rs.</li>
+                <li>Current Price: ₹{car?.currentPrice}/-</li>
                 <li>Kms on Odometer: {car?.kmsOnOdometer}</li>
                 <li>Major Scratches: {car?.majorScratches ? 'Yes' : 'No'}</li>
                 <li>Original Paint: {car?.originalPaint ? 'Yes' : 'No'}</li>
@@ -57,11 +82,11 @@ const DealerItems = () => {
                     ))}
                 </ul>
                 <ul className='descriptionList'>
-                  <li>model: {car?.oemSpecs?.model} {car?.oemSpecs?.year}</li>
-                  <li>mileage: {car?.oemSpecs?.mileage}</li>
-                  <li>power: {car?.oemSpecs?.power} BHP</li>
-                  <li>maxSpeed: {car?.oemSpecs?.maxSpeed}</li>
-                  <li>List-Price: {car?.oemSpecs?.listPrice}Rs.</li>
+                  <li>model: {car?.oemItem?.model} {car?.oemItem?.year}</li>
+                  <li>mileage: {car?.oemItem?.mileage}</li>
+                  <li>power: {car?.oemItem?.power} BHP</li>
+                  <li>maxSpeed: {car?.oemItem?.maxSpeed}</li>
+                  <li>List-Price: ₹{car?.oemItem?.listPrice}/-</li>
                 </ul>
               </div>
             </div>
