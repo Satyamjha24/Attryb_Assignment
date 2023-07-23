@@ -29,7 +29,7 @@ export const updateFun = (id,payload)=> (dispatch)=>{
                 'Authorization': localStorage.getItem("token")
             }
         }
-    ).then((res)=>dispatch({ type: UPDATECARS, payload: res }))
+    ).then((res)=>dispatch({ type: UPDATECARS}))
 }
 export const deleteFun = (id)=> (dispatch)=>{
      axios.delete(`https://zany-lime-moth-cape.cyclic.app/marketItem/delete/${id}`,{

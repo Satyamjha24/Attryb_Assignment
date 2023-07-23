@@ -7,11 +7,11 @@ const OEMCard = ({ car }) => {
 
   return (
     <div onClick={()=>navigate(`/addcar/${car._id}`)} className='card'>
-      <h2>{car.model}</h2>
+      <h2 style={{fontWeight:'bold'}}>{car.model}</h2>
       <p>Year: {car.year}</p>
       <p>List Price: Rs.{car.listPrice}</p>
       <p>Available Colors:
-          <ul className='colorList'>
+          <ul className='colorList' style={{marginLeft:'30px'}}>
             {car.availableColors?.map((color, index) => (
               <li key={index} className='colorItem' style={{ backgroundColor: color }}></li>
               ))}

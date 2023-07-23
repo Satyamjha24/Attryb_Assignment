@@ -14,15 +14,8 @@ export const reducer=(state=initState,{payload,type})=>{
         case ADDCARS:{
             return {...state,dealerData:[...state.dealerData,payload],loading:false,error:false}
         }
-        case UPDATECARS:{
-            let data=state.dealerData.map((el)=>{
-                if(el._id==payload.id){
-                    console.log('Reducer payload:', payload)
-                    return {...el,...payload.payload}
-                }
-                return el
-            })
-            return {...state,dealerData:data,loading:false,error:false}
+        case UPDATECARS:{       
+            return {...state,loading:false,error:false}
         }
         case DELETECARS:{
             let data=state.dealerData.filter((el)=>{

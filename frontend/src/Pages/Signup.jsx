@@ -2,10 +2,11 @@ import React, { useState } from 'react'
 import { registerDealer } from '../Redux/Authentication/action';
 import { useNavigate } from 'react-router-dom'
 import { useDispatch} from 'react-redux';
-import { Box, Button, Input } from '@chakra-ui/react';
+import { Box, Button, Input,useToast } from '@chakra-ui/react';
 
 const Signup = () => {
-
+  
+  const toast = useToast()
   const dispatch = useDispatch()
   const navigate = useNavigate();
   const registerState = { name: "", email: "", password: "" }
@@ -19,7 +20,13 @@ const Signup = () => {
      console.log(register);
      if(register.name!="" && register.email!="" && register.password!=""){
       dispatch(registerDealer(register))
-      alert('Registration successful')
+      toast({
+        title: "Registration Succesfull.",
+        description: "Now you can access",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      });
       navigate('/login')
      }else{
       alert('Please fill all the fields')

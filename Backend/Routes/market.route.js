@@ -9,9 +9,12 @@ MarketRouter.get("/", async (req, res) => {
 
     try {
 
-        const data = search ? await MarketItemModel.find({ "title": { "$regex": search, "$options": "i" } })
+        const data = search ? await MarketplaceInventoryModel.find(
+            { $text: { $search: search } },
+            { score: { $meta: "textScore" } }
+            ).sort({ score: { $meta: "textScore" } }).populate('oemItems')
             :
-            await MarketItemModel.find().populate('oemSpecs')
+            await MarketItemModel.find().populate('oemItems')
 
         res.send(data);
     } catch (err) {
@@ -25,7 +28,7 @@ MarketRouter.get("/dealer", async (req, res) => {
     const ID = req.body.dealer
     try {
         console.log('ID:', ID)
-        const notes = await MarketItemModel.find({ dealer: ID }).populate('dealer').populate('oemSpecs')
+        const notes = await MarketItemModel.find({ dealer: ID }).populate('dealer').populate('oemItems')
         res.send(notes)
     } catch (err) {
         console.log({ "msg": "Error Occured", "error": err })
@@ -54,8 +57,8 @@ MarketRouter.delete("/delete/:id", async (req, res) => {
 MarketRouter.patch("/update/:id", async (req, res) => {
     const ID = req.params.id
     try {
-        let data = await MarketItemModel.findByIdAndUpdate({ _id: ID }, req.body)
-        res.send(data)
+        let data = await MarketItemModel.findByIdAndUpdate({ '_id': ID }, req.body)
+        res.status(400).send(`Data has been updated successfuly`)
     } catch (err) {
         console.log({ "msg": "Error Occured", "error": err })
     }

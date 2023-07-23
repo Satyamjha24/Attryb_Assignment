@@ -1,10 +1,11 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { updateFun } from '../Redux/DealerProduct/action';
+import { getFun, updateFun } from '../Redux/DealerProduct/action';
 import '../CSS/Addcar.css'
 
 const Popup = ({car,setUpdate}) => {
   const [carDetails, setCarDetails] = useState(car);
+  const {dealerData} = useSelector((store)=>store.dealerReducer)
   const dispatch = useDispatch();
   useEffect(()=>{
     setCarDetails({...car})
@@ -33,26 +34,28 @@ const Popup = ({car,setUpdate}) => {
   };
   const updateFunction = (event) => {
     event.preventDefault();
-    dispatch(updateFun({id:car._id,carDetails}));
+    dispatch(updateFun({id:car._id,carDetails})).then(()=>{
+        dispatch(getFun())
+    })
     setUpdate(false)
   };
 
   return (
     <div className='popup'>
       <form onSubmit={updateFunction} className='box'>
-          <img src={carDetails?.image} alt="Car" className='image' />
-          <input name="title" type="text" value={carDetails?.title} onChange={handleInputChange} placeholder="Title" className='input' required/>
-          <input name="kmsOnOdometer" type="number" value={carDetails?.kmsOnOdometer} onChange={handleInputChange} placeholder="Kilometers on Odometer" className='input' required   />
-          <input name="accidentsReported" type="number" value={carDetails?.accidentsReported} onChange={handleInputChange} placeholder="Accidents Reported" className='input'   />
-          <input name="previousBuyers" type="number" value={carDetails?.previousBuyers} onChange={handleInputChange} placeholder="Previous Buyers" className='input'   />
-          <input name="currentPrice" type="text" value={carDetails?.currentPrice} onChange={handleInputChange} placeholder="Current Price" className='input' required   />
-          <input name="registrationPlace" type="text" value={carDetails?.registrationPlace} onChange={handleInputChange} placeholder="Registration Place" className='input' required   />
+          <img src={dealerData?.image} alt="Car" className='image' />
+          <input name="title" type="text" value={dealerData?.title} onChange={handleInputChange} placeholder="Title" className='input' required/>
+          <input name="kmsOnOdometer" type="number" value={dealerData?.kmsOnOdometer} onChange={handleInputChange} placeholder="Kilometers on Odometer" className='input' required   />
+          <input name="accidentsReported" type="number" value={dealerData?.accidentsReported} onChange={handleInputChange} placeholder="Accidents Reported" className='input'   />
+          <input name="previousBuyers" type="number" value={dealerData?.previousBuyers} onChange={handleInputChange} placeholder="Previous Buyers" className='input'   />
+          <input name="currentPrice" type="text" value={dealerData?.currentPrice} onChange={handleInputChange} placeholder="Current Price" className='input' required   />
+          <input name="registrationPlace" type="text" value={dealerData?.registrationPlace} onChange={handleInputChange} placeholder="Registration Place" className='input' required   />
           <div className='checkbox_label'>
-            <input name="majorScratches" type="checkbox" checked={carDetails?.majorScratches} onChange={() => setCarDetails((prevDetails) => ({ ...prevDetails, majorScratches: !prevDetails.majorScratches })) } className='checkbox_input' />
+            <input name="majorScratches" type="checkbox" checked={dealerData?.majorScratches} onChange={() => setCarDetails((prevDetails) => ({ ...prevDetails, majorScratches: !prevDetails.majorScratches })) } className='checkbox_input' />
             Major Scratches
           </div>
           <div className='checkbox_label'>
-            <input name="originalPaint" type="checkbox" checked={carDetails?.originalPaint} onChange={() => setCarDetails((prevDetails) => ({ ...prevDetails, originalPaint: !prevDetails.originalPaint })) } className='checkbox_input' />
+            <input name="originalPaint" type="checkbox" checked={dealerData?.originalPaint} onChange={() => setCarDetails((prevDetails) => ({ ...prevDetails, originalPaint: !prevDetails.originalPaint })) } className='checkbox_input' />
             Original Paint
           </div>
           <button type="submit" className='button'>ADD</button>

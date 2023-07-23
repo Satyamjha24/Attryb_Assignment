@@ -12,15 +12,17 @@
   
   .colorList {
       list-style-type: none;
+      text-align: center;
+      width: 70%;
       display: flex;
       gap: 4px;
-      margin-left: 62%;
-      padding: 5px 0 10px 0;
+      padding: 5px 0 10px 60;
     }
     .colorItem {
       width: 20px;
       height: 20px;
       border: 1px solid gray;
       border-radius: 50%;
+      
     }
     
