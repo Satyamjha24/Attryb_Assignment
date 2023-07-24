@@ -1,84 +1,220 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
-import { getFun, updateFun } from '../Redux/DealerProduct/action';
-import '../CSS/Addcar.css'
+import {
+  Box,
+  Button,
+  FormControl,
+  FormLabel,
+  HStack,
+  Heading,
+  Input,
+  useToast,
+} from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { updateFun } from "../Redux/DealerProduct/action";
+//import { editMyDealFun } from "../Redux/marketplaceReducer/action";
 
-const Popup = ({car,setUpdate}) => {
-  const [carDetails, setCarDetails] = useState(car);
-  const {dealerData} = useSelector((store)=>store.dealerReducer)
+const Popup = () => {
+  const toast = useToast();
+  const {id} = useParams();
+  const [data, setData] = useState({});
   const dispatch = useDispatch();
-  useEffect(()=>{
-    setCarDetails({...car})
-  },[car])
-  // console.log('car:', car)
-  // console.log('carDetails:', carDetails)
-  
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setCarDetails((prevDetails) => ({
-        ...prevDetails,
-      [name]: value
-    }));
-};
+  const navigate=useNavigate()
+  const { dealerData } = useSelector((store) => store.dealerReducer);
 
-  const handleDescriptionChange = (index, event) => {
-    const { value } = event.target;
-    setCarDetails((prevDetails) => {
-      const updatedDescription = [...prevDetails.description];
-      updatedDescription[index] = value;
-      return {
-        ...prevDetails,
-        description: updatedDescription
-      };
+  const handleFormChange = (e) => {
+    if (e.target.type === "number") {
+      setData((prev) => {
+        return { ...data, [e.target.name]: Number(e.target.value) };
+      });
+    } else {
+      setData((prev) => {
+        return { ...data, [e.target.name]: e.target.value };
+      });
+    }
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    delete data._id;
+    delete data.dealer
+    console.log(data);
+    dispatch(updateFun(id, data)).then(() => {
+      toast({
+        title: `${data.title} updated successfully.`,
+        description: "",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      });
+      // navigate('/dealer')
     });
   };
-  const updateFunction = (event) => {
-    event.preventDefault();
-    dispatch(updateFun({id:car._id,carDetails})).then(()=>{
-        dispatch(getFun())
-    })
-    setUpdate(false)
-  };
+
+  useEffect(() => {
+    let filteredData = dealerData.filter((el) => {
+      return el._id == id;
+    });
+    // console.log(filteredData);
+   setData(filteredData[0]);
+  }, []);
 
   return (
-    <div className='popup'>
-      <form onSubmit={updateFunction} className='box'>
-          <img src={carDetails?.image} alt="Car" className='image' />
-          <input name="title" type="text" value={carDetails?.title} onChange={handleInputChange} placeholder="Title" className='input' required/>
-          <input name="kmsOnOdometer" type="number" value={carDetails?.kmsOnOdometer} onChange={handleInputChange} placeholder="Kilometers on Odometer" className='input' required   />
-          <input name="accidentsReported" type="number" value={carDetails?.accidentsReported} onChange={handleInputChange} placeholder="Accidents Reported" className='input'   />
-          <input name="previousBuyers" type="number" value={carDetails?.previousBuyers} onChange={handleInputChange} placeholder="Previous Buyers" className='input'   />
-          <input name="currentPrice" type="text" value={carDetails?.currentPrice} onChange={handleInputChange} placeholder="Current Price" className='input' required   />
-          <input name="registrationPlace" type="text" value={carDetails?.registrationPlace} onChange={handleInputChange} placeholder="Registration Place" className='input' required   />
-          <div className='checkbox_label'>
-            <input name="majorScratches" type="checkbox" checked={carDetails?.majorScratches} onChange={() => setCarDetails((prevDetails) => ({ ...prevDetails, majorScratches: !prevDetails.majorScratches })) } className='checkbox_input' />
-            Major Scratches
-          </div>
-          <div className='checkbox_label'>
-            <input name="originalPaint" type="checkbox" checked={carDetails?.originalPaint} onChange={() => setCarDetails((prevDetails) => ({ ...prevDetails, originalPaint: !prevDetails.originalPaint })) } className='checkbox_input' />
-            Original Paint
-          </div>
-          <button type="submit" className='button'>ADD</button>
-      </form>
-      <div className='box'>
-          {carDetails?.description?.map((desc, index) => (
-          <input key={index} name={`description${carDetails?.oemSpecs?.index}`} type="text" value={desc} onChange={(event) => handleDescriptionChange(index, event)} placeholder="Description" className='description_input' required/>
-          ))}
-          <input name="model" type="text" value={`Model: ${carDetails?.oemSpecs?.model}`} placeholder="Model" className='input' required/>
-            <input name="year" type="text" value={`Year: ${carDetails?.oemSpecs?.year}`} placeholder="Year" className='input' required/>
-            <input name="listPrice" type="text" value={`List Price: ${carDetails?.oemSpecs?.listPrice}`} placeholder="ListPrice" className='input' required/>
-          <p>Available Colors:</p>
-          <ul className='colorList'>
-            {carDetails?.oemSpecs?.availableColors?.map((color, index) => (
-              <li key={index} className='colorItem' style={{ backgroundColor: color }}></li>
-              ))}
-          </ul>
-          <input name="listPrice" type="text" value={`Mileage: ${carDetails?.oemSpecs?.mileage} miles`} placeholder="ListPrice" className='input' required/>
-          <input name="listPrice" type="text" value={`Power: ${carDetails?.oemSpecs?.power} BHP`} placeholder="ListPrice" className='input' required/>
-          <input name="listPrice" type="text" value={`Max Speed: ${carDetails?.oemSpecs?.maxSpeed} mph`} placeholder="ListPrice" className='input' required/>
-      </div>
-    </div>
-  )
-} 
+    <Box style={{ width: "100%", paddingBottom: "10px", paddingTop: "80px" }}>
+      <form
+        onSubmit={handleFormSubmit}
+        style={{
+          width: "60%",
+          margin: "auto",
+          padding: "40px",
+          boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+          marginTop: "50px",
+          borderRadius: "20px",
+          color: "teal",
+        }}
+      >
+        <Heading>Edit Your Deal</Heading>
 
-export default Popup
+        <HStack style={{ width: "100%" }}>
+          <br />
+          <Box style={{ width: "49%", marginTop: "15px" }}>
+            <FormControl>
+              <FormLabel>Title</FormLabel>
+              <Input
+                name="title"
+                type="text"
+                value={data?.title}
+                onChange={handleFormChange}
+                placeholder="Enter Title"
+              />
+            </FormControl>
+            <br />
+            <FormControl>
+              <FormLabel>Manufacturer</FormLabel>
+              <Input
+                name="manufacturer"
+                type="text"
+                value={data?.manufacturer}
+                onChange={handleFormChange}
+                placeholder="Enter Manufacturer Name"
+              />
+            </FormControl>
+            <br />
+            <FormControl>
+              <FormLabel>Model No.</FormLabel>
+              <Input
+                name="model"
+                type="text"
+                value={data?.model}
+                onChange={handleFormChange}
+                placeholder="Enter Model Number"
+              />
+            </FormControl>
+            <br />
+            <FormControl>
+              <FormLabel>Year</FormLabel>
+              <Input
+                name="year"
+                type="number"
+                value={data?.year}
+                onChange={handleFormChange}
+                placeholder="Enter Manufacture Year"
+              />
+            </FormControl>
+            <br />
+            <FormControl>
+              <FormLabel>Image URL</FormLabel>
+              <Input
+                name="imageURL"
+                type="url"
+                value={data?.imageURL}
+                onChange={handleFormChange}
+                placeholder="Enter Vehicle Image URL"
+              />
+            </FormControl>
+            <br />
+            <FormControl>
+              <FormLabel>Price</FormLabel>
+              <Input
+                name="price"
+                type="number"
+                value={data?.price}
+                onChange={handleFormChange}
+                placeholder="Enter Listing price"
+              />
+            </FormControl>
+          </Box>
+          <Box style={{ width: "49%", marginLeft: "20px" }}>
+            <FormControl>
+              <FormLabel>Mileage</FormLabel>
+              <Input
+                name="mileage"
+                type="number"
+                value={data?.mileage}
+                onChange={handleFormChange}
+                placeholder="Enter Vehicle mileage"
+              />
+            </FormControl>
+            <br />
+            <FormControl>
+              <FormLabel>Color</FormLabel>
+              <Input
+                name="color"
+                type="text"
+                value={data?.color}
+                onChange={handleFormChange}
+                placeholder="Enter Vehicle color"
+              />
+            </FormControl>
+            <br />
+            <FormControl>
+              <FormLabel>Accidents</FormLabel>
+              <Input
+                name="accidents"
+                type="number"
+                value={data?.accidents}
+                onChange={handleFormChange}
+                placeholder="Enter Accidents No."
+              />
+            </FormControl>
+            <br />
+            <FormControl>
+              <FormLabel>Previous Buyers</FormLabel>
+              <Input
+                name="prevBuyers"
+                type="number"
+                value={data?.prevBuyers}
+                onChange={handleFormChange}
+                placeholder="Enter Previous Buyers No."
+              />
+            </FormControl>
+            <br />
+            <FormControl>
+              <FormLabel>Registration Place</FormLabel>
+              <Input
+                name="registrationPlace"
+                type="text"
+                value={data?.registrationPlace}
+                onChange={handleFormChange}
+                placeholder="Enter Registration Place"
+              />
+            </FormControl>
+            <br />
+            <Button mt={4} colorScheme="teal" type="submit">
+              EDIT DEAL
+            </Button>
+          </Box>
+        </HStack>
+      </form>
+
+      <br />
+      <Link to="/dealer">
+        <Button colorScheme="teal" size="md">
+          Go Back
+        </Button>
+      </Link>
+    </Box>
+  );
+};
+
+export default Popup;

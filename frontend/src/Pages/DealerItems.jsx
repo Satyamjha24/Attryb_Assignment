@@ -3,12 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteFun, getFun } from '../Redux/DealerProduct/action';
 import {Image, useToast} from '@chakra-ui/react'
 import '../CSS/DealerItem.css'
-import Popup from '../Components/Popup';
+import { Link } from 'react-router-dom';
 
 const DealerItems = () => {
   const store = useSelector((state) => state.dealerReducer);
-  const [update,setUpdate] = useState(false)
-  const [selected,setSelected] = useState(null)
   const dispatch = useDispatch();
   const toast=useToast()
 
@@ -73,8 +71,7 @@ const DealerItems = () => {
                 <li>Registration Place: {car?.registrationPlace}</li>
               </ul>
               <div>
-              <button onClick={()=>{setUpdate(true); setSelected(car) }} className='edit_button'> Edit</button>
-              <div className={update?'show':'hide'} ><Popup car={selected} setUpdate={setUpdate} /><div className='close' onClick={()=>setUpdate(false)} >X</div></div>
+              <Link to={`/edit/${car._id}`}><button className='edit_button'> Edit</button></Link>
               <button onClick={(e)=>{e.preventDefault(); deleteFunction(car?._id)}} className='delete_button'> Delete</button>
               </div>
             </div>

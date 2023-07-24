@@ -7,6 +7,7 @@ import AddCar from '../Pages/AddCar'
 import PrivateRoute from './PrivateRoute'
 import Oem from '../Pages/Oem'
 import DealerItems from '../Pages/DealerItems'
+import Popup from '../Components/Popup'
 
 const AllRoutes = () => {
   return (
@@ -16,6 +17,7 @@ const AllRoutes = () => {
       <Route path='/register' element={<Signup/>}/>
       <Route path='/addcar/:id' element={<PrivateRoute><AddCar/></PrivateRoute>}/>
       <Route path='/oem' element={<PrivateRoute><Oem/></PrivateRoute>}/>
+      <Route path="/edit/:id" element={<Popup />}></Route>
       <Route path='/dealer' element={<PrivateRoute><DealerItems/></PrivateRoute>}/>
 
     </Routes>

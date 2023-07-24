@@ -45,7 +45,7 @@ const Market = () => {
         <Input
           type="text"
           onChange={(e) => handleSearch(e.target.value)}
-          placeholder="Search Car"
+          placeholder="Search Car By Title"
         />
       </HStack>
 

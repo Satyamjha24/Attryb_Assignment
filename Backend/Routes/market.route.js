@@ -48,7 +48,7 @@ MarketRouter.delete("/delete/:id", async (req, res) => {
     const ID = req.params.id
     try {
         await MarketItemModel.findByIdAndDelete({ _id: ID })
-        res.send(`Note with ID ${ID} Deleted`)
+        res.status(200).send(`Note with ID ${ID} Deleted`)
     } catch (err) {
         console.log({ "msg": "Error Occured", "error": err })
     }
@@ -58,9 +58,10 @@ MarketRouter.delete("/delete/:id", async (req, res) => {
 MarketRouter.patch("/update/:id", async (req, res) => {
     const ID = req.params.id
     try {
-        let data = await MarketItemModel.findByIdAndUpdate({ '_id': ID }, req.body)
-        res.status(400).send(`Data has been updated successfuly`)
+        await MarketItemModel.findByIdAndUpdate({ '_id': ID }, req.body)
+        res.status(200).send(`Data has been updated successfuly`)
     } catch (err) {
+        res.status(400).send(err.message)
         console.log({ "msg": "Error Occured", "error": err })
     }
 })
