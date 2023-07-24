@@ -6,6 +6,7 @@ import {
   HStack,
   Heading,
   Input,
+  Select,
   useToast,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
@@ -38,16 +39,16 @@ const Popup = () => {
     e.preventDefault();
     delete data._id;
     delete data.dealer
-    console.log(data);
+   console.log(data);
     dispatch(updateFun(id, data)).then(() => {
       toast({
-        title: `${data.title} updated successfully.`,
+        title: `Car Updated Successfully.`,
         description: "",
         status: "success",
         duration: 2000,
         isClosable: true,
       });
-      // navigate('/dealer')
+       navigate('/dealer')
     });
   };
 
@@ -73,7 +74,7 @@ const Popup = () => {
           color: "teal",
         }}
       >
-        <Heading>Edit Your Deal</Heading>
+        <Heading>Edit Your Car Details</Heading>
 
         <HStack style={{ width: "100%" }}>
           <br />
@@ -90,33 +91,11 @@ const Popup = () => {
             </FormControl>
             <br />
             <FormControl>
-              <FormLabel>Manufacturer</FormLabel>
+              <FormLabel>KM on Odometer</FormLabel>
               <Input
-                name="manufacturer"
-                type="text"
-                value={data?.manufacturer}
-                onChange={handleFormChange}
-                placeholder="Enter Manufacturer Name"
-              />
-            </FormControl>
-            <br />
-            <FormControl>
-              <FormLabel>Model No.</FormLabel>
-              <Input
-                name="model"
-                type="text"
-                value={data?.model}
-                onChange={handleFormChange}
-                placeholder="Enter Model Number"
-              />
-            </FormControl>
-            <br />
-            <FormControl>
-              <FormLabel>Year</FormLabel>
-              <Input
-                name="year"
+                name="kmsOnOdometer"
                 type="number"
-                value={data?.year}
+                value={data?.kmsOnOdometer}
                 onChange={handleFormChange}
                 placeholder="Enter Manufacture Year"
               />
@@ -125,67 +104,55 @@ const Popup = () => {
             <FormControl>
               <FormLabel>Image URL</FormLabel>
               <Input
-                name="imageURL"
+                name="image"
                 type="url"
-                value={data?.imageURL}
+                value={data?.image}
                 onChange={handleFormChange}
-                placeholder="Enter Vehicle Image URL"
+                placeholder="Enter Car Image URL"
               />
             </FormControl>
             <br />
             <FormControl>
               <FormLabel>Price</FormLabel>
               <Input
-                name="price"
+                name="currentPrice"
                 type="number"
-                value={data?.price}
+                value={data?.currentPrice}
                 onChange={handleFormChange}
-                placeholder="Enter Listing price"
+                placeholder="Enter Car price"
               />
             </FormControl>
           </Box>
           <Box style={{ width: "49%", marginLeft: "20px" }}>
+            <br /><br />
             <FormControl>
-              <FormLabel>Mileage</FormLabel>
+              <FormLabel>No of Previous Buyers</FormLabel>
               <Input
-                name="mileage"
+                name="previousBuyers"
                 type="number"
-                value={data?.mileage}
+                value={data?.previousBuyers}
                 onChange={handleFormChange}
                 placeholder="Enter Vehicle mileage"
               />
             </FormControl>
             <br />
             <FormControl>
-              <FormLabel>Color</FormLabel>
-              <Input
-                name="color"
-                type="text"
-                value={data?.color}
-                onChange={handleFormChange}
-                placeholder="Enter Vehicle color"
-              />
+            <FormLabel>Major Scratches</FormLabel>
+              <Select name='majorScratches' type="text" value={data?.majorScratches} onChange={handleFormChange}>
+                <option value='No'>Any Major Scratches</option>
+                <option value='Yes'>Yes</option>
+                <option value='No'>No</option>
+              </Select>
             </FormControl>
             <br />
             <FormControl>
-              <FormLabel>Accidents</FormLabel>
-              <Input
-                name="accidents"
-                type="number"
-                value={data?.accidents}
-                onChange={handleFormChange}
-                placeholder="Enter Accidents No."
-              />
-            </FormControl>
-            <br />
-            <FormControl>
-              <FormLabel>Previous Buyers</FormLabel>
+              <FormLabel>No of Previous Buyers</FormLabel>
               <Input
                 name="prevBuyers"
                 type="number"
                 value={data?.prevBuyers}
                 onChange={handleFormChange}
-                placeholder="Enter Previous Buyers No."
+                placeholder="Enter No of Previous Buyers"
               />
             </FormControl>
             <br />

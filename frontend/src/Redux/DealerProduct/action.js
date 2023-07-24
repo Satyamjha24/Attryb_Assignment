@@ -37,6 +37,7 @@ export const updateFun = (id,payload)=> (dispatch)=>{
         }
     ).then((res)=>dispatch({ type: UPDATECARS}))
 }
+
 export const deleteFun = (id)=> (dispatch)=>{
     return axios.delete(`https://zany-lime-moth-cape.cyclic.app/marketItem/delete/${id}`,{
             headers: {
