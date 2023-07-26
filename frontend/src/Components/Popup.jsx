@@ -124,7 +124,7 @@ const Popup = () => {
             </FormControl>
           </Box>
           <Box style={{ width: "49%", marginLeft: "20px" }}>
-            <br /><br />
+            <br />
             <FormControl>
               <FormLabel>No of Previous Buyers</FormLabel>
               <Input
@@ -143,17 +143,6 @@ const Popup = () => {
                 <option value='Yes'>Yes</option>
                 <option value='No'>No</option>
               </Select>
-            </FormControl>
-            <br />
-            <FormControl>
-              <FormLabel>No of Previous Buyers</FormLabel>
-              <Input
-                name="prevBuyers"
-                type="number"
-                value={data?.prevBuyers}
-                onChange={handleFormChange}
-                placeholder="Enter No of Previous Buyers"
-              />
             </FormControl>
             <br />
             <FormControl>

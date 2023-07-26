@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteFun, getFun } from '../Redux/DealerProduct/action';
-import {Image, useToast} from '@chakra-ui/react'
+import {Heading, Image, useToast} from '@chakra-ui/react'
 import '../CSS/DealerItem.css'
 import { Link } from 'react-router-dom';
 
@@ -50,6 +50,21 @@ const DealerItems = () => {
         />
       </>
     );
+  }
+  if(store?.dealerData && store.dealerData.length==0){
+    return(
+      <>
+      <Image
+          src="https://cdn.dribbble.com/users/1065420/screenshots/4314595/gary-oops.gif"
+          alt="error"
+          margin="auto"
+          paddingTop="30px"
+          width={'30%'}
+          borderRadius={'50%'}
+        />
+        <Heading>You haven't added any car Please add car to view your inventory</Heading>
+      </>
+    )
   }
   return (
     <div className='container'>

@@ -26,7 +26,7 @@ const OEM = () => {
     <div>
     <div className='inputBox'>
     <Filters setData={setData} data={store?.oemData} from={"oem"} />
-      <input onChange={(e) => setSearch(e.target.value)} type="text" placeholder="Search your Car" className='input' />
+      {/* <input onChange={(e) => setSearch(e.target.value)} type="text" placeholder="Search your Car" className='input' /> */}
     </div>
     { store.loading === true ? (
         <>

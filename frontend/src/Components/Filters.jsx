@@ -1,5 +1,6 @@
 import React from 'react'
 import { colorFilter, mileagehtl, mileagelth, pricehtl, pricelth } from './filterFunction';
+import { Select } from '@chakra-ui/react';
 
 const Filters = ({setData,data,from}) => {
     const handlePriceFilter=(e)=>{
@@ -39,12 +40,12 @@ const Filters = ({setData,data,from}) => {
     }
   return (
     <div style={{display:"flex", justifyContent:"space-around",gap:'10px'}} >
-        <select onChange={handlePriceFilter}>
+        <Select onChange={handlePriceFilter}>
             <option value="">Select Price</option>
             <option value="lowToHigh">Price: Low to High</option>
             <option value="highToLow">Price: High to Low</option>
-        </select>
-        <select onChange={handleColorFilter}>
+        </Select>
+        <Select onChange={handleColorFilter}>
             <option value="">Select Color</option>
             <option value="Silver">Silver</option>
             <option value="Blue">Blue</option>
@@ -52,12 +53,12 @@ const Filters = ({setData,data,from}) => {
             <option value="White">White</option>
             <option value="Gray">Gray</option>
             <option value="Red">Red</option>
-        </select>
-        <select onChange={handleMileageFilter}>
+        </Select>
+        <Select onChange={handleMileageFilter}>
             <option value="">Select Mileage</option>
             <option value="lowToHigh">Mileage: Low to High</option>
             <option value="highToLow">Mileage: High to Low</option>
-        </select>
+        </Select>
 
     </div>
   )

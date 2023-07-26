@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import "../CSS/Navbar.css"
 import { useDispatch, useSelector } from 'react-redux';
-import { Button } from '@chakra-ui/react';
+import { Button, Heading } from '@chakra-ui/react';
 import { logoutFun } from '../Redux/Authentication/action';
 
 const Navbar = () => {
@@ -15,6 +15,7 @@ const Navbar = () => {
   }
   return (
     <div id='box'>
+      <Link to="/"> <Heading color={'red.400'}>CAR'S</Heading></Link>
         <Link to="/">Market</Link>
         <Link to="/oem">Add car </Link>
         <Link to="/dealer">Your Inventory</Link>
