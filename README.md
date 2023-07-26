@@ -46,16 +46,16 @@ This Application lets you register and Login and post, list, update, and delete 
 ![image](https://github.com/Satyamjha24/Attryb_Assignment/assets/107462251/27c71d04-6e71-4c87-a81d-ecc01e05ea76)
 
 
-# 🏷️ Add New Deal Page
+# 🏷️ Edit Deals Page
 
 ![image](https://github.com/Satyamjha24/Attryb_Assignment/assets/107462251/b0d412d5-07bc-4070-9871-a8b267195406)
 
 
-# 🏷️ Edit Deals Page
+# 🏷️ OEMs Details Page
 
 ![image](https://github.com/Satyamjha24/Attryb_Assignment/assets/107462251/7a222161-b471-4371-8749-9e5783d58470)
 
 
-# 🏷️ OEMs Details Page
+# 🏷️ Add New Deal Page
 
 ![image](https://github.com/Satyamjha24/Attryb_Assignment/assets/107462251/558812b3-fd6b-4f90-b024-8b6c7768d628)
